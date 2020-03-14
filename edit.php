@@ -19,6 +19,7 @@
         </div>
         <table class='all'>
             <tr class='tt'>
+                <td class='ct'>編號</td>
                 <td class='ct'>帳號</td>
                 <td class='ct'>姓名</td>
                 <td class='ct'>性別</td>
@@ -29,9 +30,10 @@
             </tr>
             <?php
             $row = all("account");
-            foreach ($row as $r) {
+            foreach ($row as $k => $r) {
             ?>
                 <tr class='pp'>
+                    <td class='ct'><?= ($k + 1); ?>.</td>
                     <td class='ct'><?= $r['acc']; ?></td>
                     <td class='ct'><?= $r['name']; ?></td>
                     <td class='ct'><?= ($r['gender'] == 1) ? "男" : "女"; ?></td>
@@ -39,9 +41,8 @@
                     <td class='ct'><?= $r['email']; ?></td>
                     <td class='ct'><?= $r['text']; ?></td>
                     <td class='ct'>
-                        <input type="hidden" name="id" value="<?=$r['id'];?>">
-                        <input type="button" value="編輯" onclick="edit('account',<?= $r['id']; ?>)">
-                        <input type="button" value="刪除" onclick="del('account',<?=$r['id'];?>)">
+                        <input type="button" value="編輯" class="editBtn" data-edit="<?=$r['id'];?>">
+                        <input type="button" value="刪除" onclick="del('account',<?= $r['id']; ?>)">
                     </td>
                 </tr>
             <?php
@@ -193,21 +194,53 @@
         </div>
     </div>
     <script>
-        function edit($table, $id) {
+        $(".editBtn").on("click", function() {
+
             $(".modal").show()
             $("#add").hide()
             $("#cancel").show()
             $("#edit").show()
-        }
+
+            let edit_id = $(this).data("edit")
+
+            $("#edit").on("click", function() {
+                let acc = $("#acc").val()
+                let name = $("#name").val()
+                let gender = $("#gender").val()
+                let year = $("#year").val()
+                let month = $("#month").val()
+                let day = $("#day").val()
+                let email = $("#email").val()
+                let text = $("#text").val()
+
+                $.post("./api/edit.php", {
+                    edit_id,
+                    acc,
+                    name,
+                    gender,
+                    year,
+                    month,
+                    day,
+                    email,
+                    text
+                }, function() {
+                    location.reload()
+                })
+
+            })
+        })
 
         $("#cancel").on("click", function() {
             $(".modal").hide()
         })
 
-        function del(table,id){
-          let msg = "是否確認刪除?" 
-            if(confirm(msg)==true){
-                $.post("./api/del.php",{table,id},function(){
+        function del(table, id) {
+            let msg = "是否確認刪除?"
+            if (confirm(msg) == true) {
+                $.post("./api/del.php", {
+                    table,
+                    id
+                }, function() {
                     location.reload()
                 })
             }
@@ -236,15 +269,23 @@
                     if (!regp.test(acc)) {
                         alert("帳號必須為英文+數字的組合")
                         $("#acc").val("")
-                    }else{
-                        $.post("./api/add.php",{acc,name,gender,year,month,day,email,text},function(){
+                    } else {
+                        $.post("./api/add.php", {
+                            acc,
+                            name,
+                            gender,
+                            year,
+                            month,
+                            day,
+                            email,
+                            text
+                        }, function() {
                             location.reload()
                         })
                     }
                 }
             })
         })
-
     </script>
 </body>
 
