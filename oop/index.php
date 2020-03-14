@@ -55,6 +55,9 @@ class DOG extends PET{
 	public function eat(){
 		echo "狗骨頭";
 	}
+	public function hate(){
+		echo "找不到主人";
+	}
 }
 
 $dog=new DOG;
@@ -64,5 +67,6 @@ echo $dog->setname("阿福");
 echo $dog->getname();
 echo $dog->jump();
 echo $dog->eat();
+echo $dog->hate();
 
 ?>
