@@ -1,0 +1,53 @@
+body {
+    font-family: "微軟正黑體";
+}
+
+.main{
+    width:1024px;
+    position: relative;
+}
+
+.ct {
+    text-align: center;
+}
+
+.all {
+    width: 90%;
+    margin: 10px auto 10px auto;
+}
+
+.all td {
+    min-width: 50px;
+    padding: 5px;
+}
+
+.tt {
+    background: #FFB6C1;
+}
+
+.tt td {
+    background: #FFB6C1;
+}
+
+.pp {
+    background: #FFF0F5;
+}
+
+.pp td {
+    background: #FFF0F5;
+}
+
+.modal{
+    position: absolute; 
+    width: 350px; 
+    height: 300px; 
+    background-color: white;
+    top: 100px; 
+    left: 350px; 
+    z-index: 99; 
+    display: none; 
+    padding: 5px; 
+    border: 3px double gray;
+    background-position: initial initial; 
+    background-repeat: initial initial;
+}
