@@ -1,18 +1,9 @@
 <?php
 include_once "../base.php";
 
-foreach($_POST as $key => $value){
-    switch($key){
-        case "year":
-        case "month":
-        case "day":
-        break;
-        default:
-            $data[$key]=$value;
-    } 
- }
-    $data['birthday']=$_POST["year"]."-".$_POST['month']."-".$_POST['day'];
+//將帳號字母轉變為小寫
+$_POST['acc']=strtolower($_POST['acc']);
 
- save("account",$data);
+save("account_info",$_POST);
 
  ?>
